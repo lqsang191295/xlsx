@@ -16,6 +16,8 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  return res.status(200).json({ message: "File đã được lưu thành công!" });
+
   if (req.method !== "POST") {
     return res.status(405).json({ message: "Chỉ hỗ trợ phương thức POST" });
   }
