@@ -192,7 +192,8 @@ export default function Home() {
     try {
       const response = await fetch("/api/save-excel", {
         method: "POST",
-        body: formData,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ formData }),
       });
       if (response.ok) {
         alert("✅ File đã được ghi đè thành công!");
