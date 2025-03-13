@@ -1,5 +1,3 @@
-"use server";
-
 import { NextApiRequest, NextApiResponse } from "next";
 import fs from "fs";
 import path from "path";
@@ -20,7 +18,7 @@ export default async function handler(
     return res.status(405).json({ message: "Chỉ hỗ trợ phương thức POST" });
   }
 
-  const uploadDir = path.join("/tmp", "public/uploads");
+  const uploadDir = path.join(process.cwd(), "public/uploads");
   const form = new IncomingForm({
     uploadDir, // Thiết lập thư mục upload
     keepExtensions: true, // Giữ nguyên phần mở rộng của file
@@ -32,9 +30,7 @@ export default async function handler(
     fs.mkdirSync(uploadDir, { recursive: true });
   }
 
-  return res
-    .status(200)
-    .json({ message: "File đã được lưu thành công!", uploadDir });
+  console.log("uploadDir === ", uploadDir);
 
   form.parse(req, (err: Error, fields: Fields, files: Files) => {
     if (err) {

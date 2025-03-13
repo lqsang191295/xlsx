@@ -15,12 +15,11 @@ export default async function handler(
   res: NextApiResponse
 ) {
   try {
-    console.log("req method ==== ", req.method);
-    // if (req.method !== "POST") {
-    //   return res.status(405).json({ message: "Method Not Allowed" });
-    // }
+    if (req.method !== "POST") {
+      return res.status(405).json({ message: "Method Not Allowed" });
+    }
 
-    const uploadDir = path.join(process.cwd(), "/tmp"); // Thư mục đích
+    const uploadDir = path.join(process.cwd(), "/tmp/uploads"); // Thư mục đích
     // 🛠 Kiểm tra và tạo thư mục /public/uploads nếu chưa tồn tại
     if (!fs.existsSync(uploadDir)) {
       fs.mkdirSync(uploadDir, { recursive: true });
