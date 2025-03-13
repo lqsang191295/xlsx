@@ -20,21 +20,21 @@ export default async function handler(
     return res.status(405).json({ message: "Chỉ hỗ trợ phương thức POST" });
   }
 
-  const uploadDir = path.join(process.cwd(), "public/uploads");
+  const uploadDir = path.join("/tmp", "public/uploads");
   const form = new IncomingForm({
     uploadDir, // Thiết lập thư mục upload
     keepExtensions: true, // Giữ nguyên phần mở rộng của file
     multiples: false, // Không cho phép upload nhiều file
   });
 
-  return res
-    .status(200)
-    .json({ message: "File đã được lưu thành công!", uploadDir });
-
   // Tạo thư mục upload nếu chưa tồn tại
   if (!fs.existsSync(uploadDir)) {
     fs.mkdirSync(uploadDir, { recursive: true });
   }
+
+  return res
+    .status(200)
+    .json({ message: "File đã được lưu thành công!", uploadDir });
 
   form.parse(req, (err: Error, fields: Fields, files: Files) => {
     if (err) {
