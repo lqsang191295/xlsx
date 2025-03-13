@@ -27,12 +27,14 @@ export default async function handler(
     multiples: false, // Không cho phép upload nhiều file
   });
 
+  return res
+    .status(200)
+    .json({ message: "File đã được lưu thành công!", uploadDir });
+
   // Tạo thư mục upload nếu chưa tồn tại
   if (!fs.existsSync(uploadDir)) {
     fs.mkdirSync(uploadDir, { recursive: true });
   }
-
-  return res.status(200).json({ message: "File đã được lưu thành công!", uploadDir });
 
   form.parse(req, (err: Error, fields: Fields, files: Files) => {
     if (err) {
