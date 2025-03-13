@@ -6,17 +6,14 @@ import * as XLSX from "xlsx";
 import PizZip from "pizzip";
 import Docxtemplater from "docxtemplater";
 
-const outputDir = path.join(process.cwd(), "public/exports");
+const outputDir = path.join("/tmp", "public/exports");
 
 const exportExcelFiles = (
   newFileName: string,
   dataExport: Record<string, string>[],
   index: number
 ): string => {
-  const filePath = path.join(
-    process.cwd(),
-    "public/uploads/excel-template.xlsx"
-  );
+  const filePath = path.join("/tmp", "public/uploads/excel-template.xlsx");
   const fileBuffer = fs.readFileSync(filePath);
   const workbook = XLSX.read(fileBuffer, { type: "buffer" });
   const worksheet = workbook.Sheets[workbook.SheetNames[0]];
@@ -66,10 +63,7 @@ const exportWordFiles = (
   }
 
   // 1️⃣ Đọc file DOCX mẫu
-  const filePath = path.join(
-    process.cwd(),
-    "public/uploads/docx-template.docx"
-  );
+  const filePath = path.join("/tmp", "public/uploads/docx-template.docx");
   const fileBuffer = fs.readFileSync(filePath, "binary");
 
   // 2️⃣ Load file DOCX vào bộ nhớ
@@ -87,10 +81,7 @@ const exportWordFiles = (
 
   // 5️⃣ Xuất file DOCX mới
   const buffer = doc.getZip().generate({ type: "nodebuffer" });
-  const outputPath = path.join(
-    process.cwd(),
-    `public/exports/${newFileName}.docx`
-  );
+  const outputPath = path.join("/tmp", `public/exports/${newFileName}.docx`);
   fs.writeFileSync(outputPath, buffer);
 
   return outputPath;

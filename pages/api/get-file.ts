@@ -8,11 +8,7 @@ export default async function handler(
 ) {
   try {
     const { filename } = req.query; // Nhận tên file từ query params
-    const filePath = path.join(
-      process.cwd(),
-      "public/uploads",
-      filename as string
-    );
+    const filePath = path.join("/tmp", "public/uploads", filename as string);
 
     if (!fs.existsSync(filePath)) {
       return res.status(200).json({ exist: false });

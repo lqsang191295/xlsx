@@ -13,7 +13,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
       return res.status(400).json({ message: "Thiếu tên file" });
     }
 
-    const filePath = path.join(process.cwd(), "public/uploads", filename);
+    const filePath = path.join("/tmp", "public/uploads", filename);
 
     if (!fs.existsSync(filePath)) {
       return res.status(404).json({ message: "File không tồn tại" });
