@@ -127,6 +127,8 @@ export default async function handler(
       filePaths.push(outputDir);
     }
 
+    return res.status(200).json({ message: "asaaaaa" });
+
     // **Tạo file ZIP**
     const zipPath = path.join(outputDir, "exported-files.zip");
     const output = fs.createWriteStream(zipPath);
